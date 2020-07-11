@@ -4,10 +4,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const categoriesRoutes = require("./routes/categories");
 
 const mongoose = require("mongoose");
+
 mongoose.connect(
   "mongodb://heroku_q09b30w5:heroku_q09b30w5@ds119692.mlab.com:19692/heroku_q09b30w5",
   {
@@ -28,8 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/categories", categoriesRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
