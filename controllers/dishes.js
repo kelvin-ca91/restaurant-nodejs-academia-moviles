@@ -89,7 +89,6 @@ class Dish {
       }
       throw "ERROR";
     } catch (error) {
-      console.log(error);
       throw "ERROR";
     }
   }

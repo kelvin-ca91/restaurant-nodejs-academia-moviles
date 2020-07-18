@@ -75,7 +75,9 @@ class Category {
         { _id: { $in: codsCategory } },
         { _id: 1, name: 1, status: 1 }
       );
-    } catch (error) {}
+    } catch (error) {
+      throw "ERROR";
+    }
   }
 }
 

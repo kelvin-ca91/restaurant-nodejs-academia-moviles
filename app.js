@@ -3,13 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const utils = require("./helpers/utils");
 const categoriesRoutes = require("./routes/categories");
 const dishesRouter = require("./routes/dishes");
+const authRouter = require("./routes/auth");
 
 const mongoose = require("mongoose");
 
 mongoose.connect(
+  // "mongodb://localhost/restaurant",
   "mongodb://heroku_q09b30w5:heroku_q09b30w5@ds119692.mlab.com:19692/heroku_q09b30w5",
   {
     useUnifiedTopology: true,
@@ -29,8 +31,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", " Content-Type");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+
+  next();
+});
+
+app.use(["/categories", "/dishes"], async (req, res, next) => {
+  try {
+    if (req.method == "OPTIONS") {
+      return next();
+    } else {
+      if (req.headers.token) {
+        const decode = await utils.decodeToken(req.headers.token);
+        if (decode) {
+          const user = decode._doc ? decode._doc : decode;
+          req.body.userId = user._id;
+          req.body.user = user;
+          return next();
+        }
+      }
+      throw new Error();
+    }
+  } catch (error) {
+    return res.sendStatus(401);
+  }
+});
+
 app.use("/categories", categoriesRoutes);
 app.use("/dishes", dishesRouter);
+app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
