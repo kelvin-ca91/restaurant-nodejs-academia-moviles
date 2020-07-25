@@ -36,7 +36,7 @@ router.delete("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     await categoryControllers.destroy(_id);
-    return res.sendStatus(200);
+    return res.json({ ok: true });
   } catch (error) {
     return res.status(500).json({ error });
   }
@@ -45,7 +45,7 @@ router.delete("/:_id", async (req, res) => {
 router.put("/", async (req, res) => {
   try {
     await categoryControllers.update(req.body);
-    return res.sendStatus(200);
+    return res.json({ ok: true });
   } catch (error) {
     return res.status(500).json({ error });
   }

@@ -30,7 +30,7 @@ router.delete("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     await dishesControllers.destroy(_id);
-    return res.sendStatus(200);
+    return res.json({ ok: true });
   } catch (error) {
     return res.status(500).json({ error });
   }
@@ -50,7 +50,7 @@ router.get("/:_id/show", async (req, res) => {
 router.put("/", async (req, res) => {
   try {
     await dishesControllers.update(req.body);
-    return res.sendStatus(200);
+    return res.json({ ok: true });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
