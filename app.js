@@ -50,9 +50,9 @@ app.use(["/categories", "/dishes"], async (req, res, next) => {
       if (req.headers.token) {
         const decode = await utils.decodeToken(req.headers.token);
         if (decode) {
-          const user = decode._doc ? decode._doc : decode;
-          req.body.userId = user._id;
-          req.body.user = user;
+          // const user = decode._doc ? decode._doc : decode;
+          // req.body.userId = user._id;
+          // req.body.user = user;
           return next();
         }
       }
