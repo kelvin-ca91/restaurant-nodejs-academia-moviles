@@ -15,7 +15,7 @@ class Category {
   async list() {
     try {
       return await categoriesModels.find(
-        {},
+        { active: true },
         {
           _id: 1,
           name: 1,
