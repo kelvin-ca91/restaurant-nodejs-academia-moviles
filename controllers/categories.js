@@ -72,7 +72,7 @@ class Category {
   async listByIds(codsCategory) {
     try {
       return await categoriesModels.find(
-        { _id: { $in: codsCategory } },
+        { _id: { $in: codsCategory }, active: true },
         { _id: 1, name: 1, status: 1 }
       );
     } catch (error) {

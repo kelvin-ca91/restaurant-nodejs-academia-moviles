@@ -35,18 +35,20 @@ class Dish {
       const listCategories = await categoriesController.listByIds(codsCategory);
 
       const categoriesByKey = keyBy(listCategories, "_id");
-      const result = listDishes.map((item) => {
-        const { _id, name, avatar, price, description, active } = item;
-        return {
-          _id,
-          category: categoriesByKey[item.category_id],
-          name,
-          avatar,
-          price,
-          description,
-          active,
-        };
-      });
+      const result = listDishes
+        .filter((item) => categoriesByKey[item.category_id])
+        .map((item) => {
+          const { _id, name, avatar, price, description, active } = item;
+          return {
+            _id,
+            category: categoriesByKey[item.category_id],
+            name,
+            avatar,
+            price,
+            description,
+            active,
+          };
+        });
       return result;
     } catch (error) {
       throw error._message;
