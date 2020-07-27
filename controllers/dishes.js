@@ -20,7 +20,7 @@ class Dish {
   async list() {
     try {
       const listDishes = await dishesModels.find(
-        {},
+        { active: true },
         {
           _id: 1,
           category_id: 1,
