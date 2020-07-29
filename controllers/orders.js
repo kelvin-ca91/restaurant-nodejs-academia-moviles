@@ -25,7 +25,7 @@ class Orders {
           cant_dishes: _.sumBy(dishes, "cant"),
           price_total: _.sumBy(newListDishes, "price"),
         };
-
+        sockets.newOrder(order);
         return await orderModel.create(order);
       }
       throw "ERROR";
@@ -36,7 +36,6 @@ class Orders {
 
   async list() {
     try {
-      sockets.newOrder(1);
       return await orderModel.find({}, { active: false, __v: false });
     } catch (error) {
       throw "ERROR";
