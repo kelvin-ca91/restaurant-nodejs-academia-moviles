@@ -127,6 +127,17 @@ class Dish {
       throw "ERROR";
     }
   }
+
+  async listByIds(codsDishes) {
+    try {
+      return await dishesModels.find(
+        { _id: { $in: codsDishes } },
+        { _id: 1, name: 1, price: 1 }
+      );
+    } catch (error) {
+      throw "ERROR";
+    }
+  }
 }
 
 module.exports = new Dish();

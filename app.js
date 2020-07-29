@@ -7,6 +7,7 @@ const utils = require("./helpers/utils");
 const categoriesRoutes = require("./routes/categories");
 const dishesRouter = require("./routes/dishes");
 const authRouter = require("./routes/auth");
+const ordersRouter = require("./routes/order");
 
 const mongoose = require("mongoose");
 
@@ -66,6 +67,7 @@ app.use(["/categories", "/dishes"], async (req, res, next) => {
 app.use("/categories", categoriesRoutes);
 app.use("/dishes", dishesRouter);
 app.use("/auth", authRouter);
+app.use("/orders", ordersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
