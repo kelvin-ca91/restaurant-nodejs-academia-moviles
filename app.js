@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var cors = require("cors");
 const utils = require("./helpers/utils");
 const categoriesRoutes = require("./routes/categories");
 const dishesRouter = require("./routes/dishes");
@@ -32,16 +33,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Authorization, token, Content-Type, X-Requested-With"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+var corsOptions = {
+  origin: "*",
+  methods: "GET, POST, OPTIONS, PUT, DELETE",
+  allowedHeaders: "Authorization, token, Content-Type",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Authorization, token, Content-Type, X-Requested-With"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
 
-  next();
-});
+//   next();
+// });
 
 app.use(["/categories", "/dishes", "/orders"], async (req, res, next) => {
   try {
