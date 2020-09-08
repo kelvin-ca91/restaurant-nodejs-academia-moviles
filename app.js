@@ -13,7 +13,6 @@ const clientsRouter = require("./routes/clients");
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  // "mongodb://localhost/restaurant",
   "mongodb+srv://restaurant-academia:restaurant-academia@restaurant-academia.8uhqv.gcp.mongodb.net/restaurant-academia?retryWrites=true&w=majority",
   {
     useUnifiedTopology: true,
