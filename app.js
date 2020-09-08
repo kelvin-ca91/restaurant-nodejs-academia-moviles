@@ -22,7 +22,13 @@ mongoose.connect(
 );
 
 var app = express();
-
+var corsOptions = {
+  origin: "*",
+  methods: "GET, POST, OPTIONS, PUT, DELETE",
+  allowedHeaders: "Authorization, token, Content-Type",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -33,13 +39,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-var corsOptions = {
-  origin: "*",
-  methods: "GET, POST, OPTIONS, PUT, DELETE",
-  allowedHeaders: "Authorization, token, Content-Type",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors());
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(
