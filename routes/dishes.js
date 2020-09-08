@@ -39,7 +39,6 @@ router.delete("/:_id", async (req, res) => {
 router.get("/:_id/show", async (req, res) => {
   try {
     const { _id } = req.params;
-    console.log(_id);
     const dish = await dishesControllers.show(_id);
     return res.json(dish);
   } catch (error) {

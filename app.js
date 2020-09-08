@@ -8,12 +8,13 @@ const categoriesRoutes = require("./routes/categories");
 const dishesRouter = require("./routes/dishes");
 const authRouter = require("./routes/auth");
 const ordersRouter = require("./routes/order");
+const clientsRouter = require("./routes/clients");
 
 const mongoose = require("mongoose");
 
 mongoose.connect(
   // "mongodb://localhost/restaurant",
-  "mongodb://heroku_q09b30w5:heroku_q09b30w5@ds119692.mlab.com:19692/heroku_q09b30w5",
+  "mongodb+srv://restaurant-academia:restaurant-academia@restaurant-academia.8uhqv.gcp.mongodb.net/restaurant-academia?retryWrites=true&w=majority",
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(["/categories", "/dishes"], async (req, res, next) => {
+app.use(["/categories", "/dishes", "/orders"], async (req, res, next) => {
   try {
     if (req.method == "OPTIONS") {
       return next();
@@ -68,6 +69,7 @@ app.use("/categories", categoriesRoutes);
 app.use("/dishes", dishesRouter);
 app.use("/auth", authRouter);
 app.use("/orders", ordersRouter);
+app.use("/auth-client", clientsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

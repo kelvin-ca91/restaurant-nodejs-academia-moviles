@@ -32,6 +32,28 @@ class Auth {
       throw "ERROR";
     }
   }
+
+  async loginSocket(socketId, userId) {
+    try {
+      return await administratorsModels.updateOne(
+        { _id: userId },
+        { $push: { socketId } }
+      );
+    } catch (error) {
+      throw "ERROR";
+    }
+  }
+
+  async logoutSocket(socketId) {
+    try {
+      return await administratorsModels.updateOne(
+        { _id: userId },
+        { $pull: { socketId } }
+      );
+    } catch (error) {
+      throw "ERROR";
+    }
+  }
 }
 
 module.exports = new Auth();

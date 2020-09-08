@@ -22,4 +22,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/dashboard", async (req, res) => {
+  try {
+    const result = await ordersControllers.sendDataDashboard();
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
+
 module.exports = router;
