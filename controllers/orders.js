@@ -5,6 +5,7 @@ const clientsController = require("../controllers/clients");
 const sockets = require("../sockets/base");
 const _ = require("lodash");
 const moment = require("moment");
+const { zip } = require("lodash");
 
 const months = [
   "Enero",
@@ -35,6 +36,7 @@ class Orders {
             dish_id: item.dish_id,
             price: dishesByKey[item.dish_id].price,
             cant: item.cant,
+            name: dishesByKey[item.dish_id].name,
           }));
         const price_total = newListDishes.map((item) => ({
           price: item.price * item.cant,
@@ -128,6 +130,7 @@ class Orders {
         const client = listClients.find(
           (item) => String(item._id) === client_id
         );
+
         if (client) {
           newListOrder.push({
             date,
@@ -142,6 +145,7 @@ class Orders {
       sockets.sendOrders(newListOrder);
       return newListOrder;
     } catch (error) {
+      console.log(error);
       throw "ERROR";
     }
   }

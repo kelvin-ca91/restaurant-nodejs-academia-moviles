@@ -9,6 +9,7 @@ const order = new Schema({
       dish_id: { type: String, required: true },
       cant: { type: Number, required: true },
       price: { type: Number, required: true },
+      name: { type: String, required: true },
     },
   ],
   cant_dishes: { type: Number, required: true },
