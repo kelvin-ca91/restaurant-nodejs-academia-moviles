@@ -40,10 +40,6 @@ class Socket {
         }
       });
 
-      socket.on("updateDashboard", async () => {
-        await orderController.sendDataDashboard();
-      });
-
       socket.on("registrarOrdenDeCompra", async (data) => {
         try {
           const { clientId, dishes } = data;

@@ -37,6 +37,7 @@ class Clients {
       const token = utils.encodeToken(rowUser);
       return {
         token,
+        client_id: rowUser._id,
       };
     } catch (error) {
       throw "ERROR";
