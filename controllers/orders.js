@@ -51,7 +51,8 @@ class Orders {
           };
 
           const saveOrder = await orderModel.create(order);
-          await this.list();
+          // await this.list();
+          sockets.sendOrders(saveOrder);
           await this.sendDataDashboard();
           return saveOrder;
         }
@@ -142,7 +143,7 @@ class Orders {
           });
         }
       }
-      sockets.sendOrders(newListOrder);
+      // sockets.sendOrders(newListOrder);
       return newListOrder;
     } catch (error) {
       console.log(error);
