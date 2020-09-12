@@ -51,8 +51,8 @@ class Orders {
           };
 
           const saveOrder = await orderModel.create(order);
-          // await this.list();
-          sockets.sendOrders(saveOrder);
+          const data = await this.list();
+          sockets.sendOrders(data[data.length - 1]);
           await this.sendDataDashboard();
           return saveOrder;
         }
