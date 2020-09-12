@@ -52,7 +52,10 @@ class Orders {
 
           const saveOrder = await orderModel.create(order);
           const data = await this.list();
-          sockets.sendOrders(data[data.length - 1]);
+          const newOrder = data.find(
+            (i) => String(i._id) === String(saveOrder._id)
+          );
+          sockets.sendOrders(newOrder);
           await this.sendDataDashboard();
           return saveOrder;
         }
