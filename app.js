@@ -12,13 +12,10 @@ const clientsRouter = require("./routes/clients");
 
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb+srv://restaurant-academia:restaurant-academia@restaurant-academia.8uhqv.gcp.mongodb.net/restaurant-academia?retryWrites=true&w=majority",
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect("mongodb://127.0.0.1:restaurant", {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
 var app = express();
 
@@ -51,9 +48,6 @@ app.use(["/categories", "/dishes"], async (req, res, next) => {
       if (req.headers.token) {
         const decode = await utils.decodeToken(req.headers.token);
         if (decode) {
-          // const user = decode._doc ? decode._doc : decode;
-          // req.body.userId = user._id;
-          // req.body.user = user;
           return next();
         }
       }
