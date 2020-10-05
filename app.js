@@ -12,10 +12,13 @@ const clientsRouter = require("./routes/clients");
 
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:restaurant", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://restaurant-academia:restaurant-academia@restaurant-academia.8uhqv.gcp.mongodb.net/restaurant-academia?retryWrites=true&w=majority",
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  }
+);
 
 var app = express();
 

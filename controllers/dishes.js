@@ -128,6 +128,23 @@ class Dish {
     }
   }
 
+  async listByCategory(category_id) {
+    try {
+      const listDishes = await dishesModels.find(
+        { active: true, category_id },
+        {
+          _id: 1,
+          category_id: 1,
+          name: 1,
+          avatar: 1,
+          price: 1,
+          description: 1,
+        }
+      );
+      return listDishes;
+    } catch (error) {}
+  }
+
   async listByIds(codsDishes) {
     try {
       return await dishesModels.find(

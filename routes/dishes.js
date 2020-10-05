@@ -51,7 +51,16 @@ router.put("/", async (req, res) => {
     await dishesControllers.update(req.body);
     return res.json({ ok: true });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ error });
+  }
+});
+
+router.get("/category/:category_id", async (req, res) => {
+  try {
+    const { category_id } = req.params;
+    const dishes = await dishesControllers.listByCategory(category_id);
+    return res.json(dishes);
+  } catch (error) {
     return res.status(500).json({ error });
   }
 });
